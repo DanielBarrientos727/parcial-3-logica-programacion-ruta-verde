@@ -193,7 +193,7 @@ Los archivos principales del proyecto son:
 ruta-verde-java/
 │
 ├── RutaVerde.java
-├── Reutilizacion.java
+├── Reutilizacion.Reutilizacion.java
 └── README.md
 ```
 
@@ -202,7 +202,7 @@ Desde una terminal, ubicándose en el directorio del proyecto, se puede compilar
 **Compilación:**
 
 ```bash
-javac RutaVerde.java Reutilizacion.java
+javac RutaVerde.java Reutilizacion.Reutilizacion.java
 ```
 
 **Ejecución:**
