@@ -1,0 +1,398 @@
+
+
+(FORMA PARTE DE MI REPOSITORIO POR LO QUE ESTA INFORMACIÓN PROVIENE DIRECTAMENTE DE MI REUTILIZACIÓN ANTES DE LA MODIFICACIÓN)
+
+// MI REUTILIZACIÓN HASTA ESE MOMENTO
+
+package reutilizacion;
+
+public class Print{
+
+    public static String print(String msg){
+        System.out.print(msg);
+        return msg;
+    }
+
+    public static void println(){
+        System.out.println();
+    }
+
+    public static void l(String msg){
+        System.out.print(msg);
+    }
+
+    public static void ln(String msg){
+        System.out.println(msg);
+    }
+
+    public static void objectoln(Object objeto){
+        System.out.println(objeto);
+    }
+
+    public static void objectol(Object objeto) {
+        System.out.print(objeto);
+    }
+}
+
+// SIGUIENTE CÓDIGO
+
+
+package reutilizacion;
+
+import java.util.Scanner;
+
+public class Sc {
+
+    public static Scanner sc = new Scanner(System.in);
+
+    public static int nextInt(String mensaje) {
+        Print.l(mensaje);
+        int numero = sc.nextInt();
+        sc.nextLine();
+        return numero;
+    }
+
+    public static double nextDouble(String mensaje) {
+        Print.l(mensaje);
+        double numero = sc.nextDouble();
+        sc.nextLine();
+        return numero;
+    }
+
+    public static boolean nextBoolean(String mensaje) {
+        Print.l(mensaje);
+        boolean respuesta = sc.nextBoolean();
+        sc.nextLine();
+        return respuesta;
+    }
+
+    public static String nextLine(String mensaje) {
+        Print.l(mensaje);
+        return sc.nextLine();
+    }
+
+    public static String nextScan() {
+        return sc.nextLine();
+    }
+
+}
+
+// SIGUIENTE CÓDIGO
+// Forma enseñada y explicada por la profesora anexado en mi repositorio
+
+package arreglosYMatrices;
+
+import reutilizacion.*;
+
+public class DetectivePalabras {
+    public static void main(String[] args) {
+
+        int cantidad = Sc.nextInt("¿Cuántas palabras vas a analizar?\n");
+
+        String[] palabras = new String[cantidad];
+
+        // Ingresar las palabras
+        for (int i = 0; i < palabras.length; i++) {
+            palabras[i] = Sc.nextLine("Ingrese la palabra " + (i + 1) + ":\n");
+        }
+
+        int totalPalindromos = 0;
+        int mayorVocales = 0;
+        int posicionMayor = 0;
+
+        // Analizar cada palabra
+        for (int i = 0; i < palabras.length; i++) {
+
+            int vocales = contarVocales(palabras[i]);
+
+            Print.ln("\nPalabra: " + palabras[i]);
+            Print.ln("Cantidad de vocales: " + vocales);
+
+            if (esPalindromo(palabras[i])) {
+                Print.ln("Es un palíndromo.");
+                totalPalindromos++;
+            } else {
+                Print.ln("No es un palíndromo.");
+            }
+
+            if (vocales > mayorVocales) {
+                mayorVocales = vocales;
+                posicionMayor = i;
+            }
+        }
+
+        // Mostrar total de palíndromos
+        Print.ln("\nTotal de palíndromos: " + totalPalindromos);
+
+        // Mostrar palabra con más vocales
+        Print.ln("Palabra con más vocales: " + palabras[posicionMayor]);
+        Print.ln("Cantidad de vocales: " + mayorVocales);
+
+        // Buscar una palabra
+        String buscado = Sc.nextLine("\n¿Qué palabra quieres buscar?\n");
+
+        int posicion = buscarPalabra(palabras, buscado);
+
+        if (posicion == -1) {
+            Print.ln("La palabra " + buscado + " no está en el arreglo.");
+        } else {
+            Print.ln("La palabra " + buscado +
+                    " está en la posición " + (posicion + 1) + ".");
+        }
+    }
+
+    public static int contarVocales(String palabra) {
+
+        int contador = 0;
+        palabra = palabra.toLowerCase();
+
+        for (int i = 0; i < palabra.length(); i++) {
+
+            char letra = palabra.charAt(i);
+
+            if (letra == 'a' || letra == 'e' || letra == 'i' ||
+                    letra == 'o' || letra == 'u') {
+                contador++;
+            }
+        }
+
+        return contador;
+    }
+
+    public static boolean esPalindromo(String palabra) {
+
+        palabra = palabra.toLowerCase();
+
+        for (int i = 0; i < palabra.length() / 2; i++) {
+
+            if (palabra.charAt(i) != palabra.charAt(palabra.length() - 1 - i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static int buscarPalabra(String[] palabras, String buscado) {
+
+        for (int i = 0; i < palabras.length; i++) {
+
+            if (palabras[i].equalsIgnoreCase(buscado)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+}
+
+// Siguiente código
+
+// FORMA ADAPTADA A MI COMPRENSIÓN Y ADAPTADA SIN REUTILIZACIÓN PARA PRUEBA EN DIFERENTE COMPILADOR
+
+package ejercicio1DetectivePalabras;
+
+import java.util.Scanner;
+
+public class DetectivePalabras {
+    public static void main(String [] args){
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Ingrese la cantidad de palabras que va a analizar: ");
+        int cantidadPalabras = sc.nextInt();
+        sc.nextLine();
+
+        String [] palabra = new String[cantidadPalabras];
+
+        for (int i = 0; i < cantidadPalabras; i++){
+            System.out.print("Ingrese la palabra: ");
+            palabra[i] = sc.nextLine();
+        }
+
+        int contadorPalindromo = 0;
+
+        String palabraMayor = palabra[0];
+        int maxVocales = contarVocales(palabra[0]);
+
+        for (int i = 0; i < cantidadPalabras; i++){
+            int vocales = contarVocales(palabra[i]);
+
+            if (esPalindromo(palabra[i])){
+                System.out.println("La palabra " + palabra[i] + " tiene " + vocales + " vocales y es palindromo");
+
+                contadorPalindromo ++;
+            } else {
+                System.out.println("La palabra " + palabra[i] + " tiene " + vocales + " vocales y no es palindromo");
+            }
+            if (vocales > maxVocales){
+                maxVocales = vocales;
+                palabraMayor = palabra[i];
+            }
+        }
+        System.out.println("La cantidad de palindromos es: " + contadorPalindromo);
+        System.out.println("La palabra con mayores vocales es: " + palabraMayor);
+
+        System.out.print("Ingrese la palabra que desea buscar: ");
+        String buscado = sc.nextLine();
+
+        int posicion = buscar(palabra, buscado);
+
+        if (posicion == -1){
+            System.out.println("La palabra " + buscado + " no está en el arreglo.");
+        } else {
+            System.out.println("La palabra " + buscado + " está en la posición " + (posicion +1) + "." );
+        }
+    }
+
+    public static int contarVocales(String palabra) {
+
+        int contador = 0;
+        String minuscula = palabra.toLowerCase();
+
+        for (int i = 0; i < minuscula.length(); i++) {
+            char letra = minuscula.charAt(i);
+
+            if (letra == 'a' || letra == 'e' || letra == 'i' || letra == 'o' || letra == 'u') {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public static boolean esPalindromo(String palabra){
+        String minuscula = palabra.toLowerCase();
+        boolean palindromo = true;
+
+        for (int i = 0; i < minuscula.length() / 2; i++){
+            if (minuscula.charAt(i) != minuscula.charAt(minuscula.length() - 1 - i)){
+                palindromo = false;
+            }
+        }
+        return palindromo;
+    }
+
+    public static int buscar (String [] palabra, String buscado ){
+        for (int i = 0; i < palabra.length; i++){
+
+            if (palabra[i].equalsIgnoreCase(buscado)){
+                return i;
+            }
+        } return -1;
+    }
+}
+
+// MÁS PRÁCTICAS QUE NO SE ENCUENTRAN DIRECTAMENTE EN EL REPOSITORIO DE LA PROFESORA PERO QUE YO PRACTIQUÉ PORQUE ELLA LO ENSEÑÓ PERO NO ACTUALIZÓ SU REPOSITORIO CON ESA INFORMACIÓN Y SE PUEDEN APLICAR SEGÚN CONVENGA
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Escribe una frase: ");
+        String frase = scanner.nextLine();
+        System.out.println("La frase tiene " + contarPalabras(frase) + " palabras");
+        System.out.println("Primera palabra: " + primeraPalabra(frase));
+        
+    }
+    
+    public static int contarPalabras(String frase){
+        
+        int palabras = 0;
+        boolean enPalabra = false;
+        
+        for (int i = 0; i < frase.length(); i++) {
+            char letra = frase.charAt(i);
+            if (letra != ' ' && !enPalabra) {
+                palabras++;
+                enPalabra = true;
+            } else if (letra == ' ') {
+                enPalabra = false;
+            }
+    } 
+    return palabras;
+    }
+    
+    public static String primeraPalabra(String frase) {
+    String palabra = "";
+    boolean enPalabra = false;
+
+    for (int i = 0; i < frase.length(); i++) {
+        char letra = frase.charAt(i);
+
+        if (letra != ' ') {
+            enPalabra = true;
+            palabra += letra;
+        } else if (enPalabra) {
+            break;
+        }
+    }
+
+    return palabra;
+}
+}
+
+// SIGUIENTE CÓDIGO
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("¿Cuántas filas tiene la figura completa?: ");
+        int n = sc.nextInt();
+
+        System.out.print("Lleva relleno? (1 = Sí, 2 = Solo bordes): ");
+        boolean relleno = sc.nextInt() == 1;
+
+        int[] estrellas = new int[n];
+        int anchoMaximo = 0;
+
+        for (int i = 0; i < n; i++) {
+            estrellas[i] = (i < n / 2) ? -((n + 2 * i + 1) + (Math.max(1, (n / 2 - i) * 2 - 1)) * 100) : (n + 2 * (n / 2) + 1);
+            if (estrellas[i] > anchoMaximo) {
+                anchoMaximo = estrellas[i];
+            }
+        }
+
+        dibujar(estrellas, anchoMaximo, relleno);
+    }
+
+    public static void dibujar(int[] estrellas, int ancho, boolean relleno) {
+        for (int fila = 0; fila < estrellas.length; fila++) {
+            int dato = estrellas[fila];
+            int totalBloques;
+            int huecoCentro;
+            if (dato < 0) {
+                totalBloques = -dato % 100;
+                huecoCentro = -dato / 100;
+            } else {
+                totalBloques = dato;
+                huecoCentro = 0;
+            }
+            int espacios = (ancho - totalBloques) / 2;
+            int inicioHueco = espacios + (totalBloques - huecoCentro) / 2;
+
+            for (int col = 0; col < espacios + totalBloques; col++) {
+                if (col < espacios) {
+                    System.out.print(" ");
+                } else if (huecoCentro > 0 && col >= inicioHueco && col < inicioHueco + huecoCentro) {
+                    System.out.print(" ");
+                } else {
+                    boolean esBordeHorizontal = (fila == 0 || fila == estrellas.length - 1);
+                    boolean esBordeExterior   = (col == espacios || col == espacios + totalBloques - 1);
+                    boolean esBordeHueco      = (huecoCentro > 0 && (col == inicioHueco - 1 || col == inicioHueco + huecoCentro));
+
+                    boolean esBorde = esBordeHorizontal || esBordeExterior || esBordeHueco;
+                    
+                    if (relleno || esBorde) {
+                        System.out.print("*");
+                    } else {
+                        System.out.print(" ");
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+}
+

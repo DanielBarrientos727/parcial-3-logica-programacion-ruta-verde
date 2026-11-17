@@ -1,0 +1,2498 @@
+package ciclos;
+
+public class AdivinaElNumero {
+
+    public static void main (String[] args){
+
+        int secreto = 7;
+
+        jugar(secreto);
+
+    }
+
+    //el usuario puede tener max 5 intentos (1-10) es bajito, esta alto // 7 ---- 1 es bajito, 10 --- muy alto
+    // termina: acierte o se
+
+    public static void jugar (int secreto){
+
+        boolean acerto = false;
+        int intentos = 0;
+
+        while (!acerto && intentos <5){
+
+            int numero = Entrada.leerEntero("Intento " + (intentos + 1) + " - adivina el número (1-10): ");
+            intentos ++;
+
+            if (numero == secreto){
+                acerto = true;
+            } else if (numero < secreto) {
+                System.out.println("Muy bajo");
+            }else {
+                System.out.println("Muy alto");
+            }
+        }
+
+        if (acerto){
+            System.out.println("¡Ganasteee en " + intentos + " intentos!!!");
+        }else {
+            System.out.println("Perdiste, el número secreto era " + secreto);
+        }
+
+
+    }
+
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+//  Pedir una frase con espacios y mostrar cuantas letras tiene en total, cuántas palabras tiene y cuál es la primera palabra
+//se asume que las palabras están separadas por un solo espacio, sin espacios al inicio ni al final
+// me gusta comer un sandiwch por la mañana
+// letras =
+//palabras=
+// primera palabra =
+
+public class AnalizadorDeFrases {
+
+    public static void main(String[] args) {
+
+        String frase = Entrada.leerLinea("Escribe una frase sin espacio al final: ");
+
+        System.out.println("Letras (con espacios): " + frase.length()); // I like = 6
+        System.out.println("Palabras: " + contarPalabras(frase));
+        System.out.println("Primera palabra: " + primeraPalabra(frase));
+
+    }
+    public static int contarPalabras(String frase){
+        int espacios = 0;
+
+        for ( int i = 0; i < frase.length(); i++){
+            if (frase.charAt(i) == ' '){ // pregunta si es un espacio
+                espacios++;
+            }
+        }
+    return espacios + 1;
+
+    }
+    public static String primeraPalabra( String frase){
+        int posicion = frase.indexOf(' '); // guarda en que casillero está el primer espacio o -1
+
+        if(posicion == -1){
+            return frase; //.  COMERGUSTAR
+        } //.  me gusta comer. // me
+
+        return frase.substring(0, posicion);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class ArregloAlReves {
+
+    public static void main (String[] args){
+        int[] numeros = {10, 20, 30, 40, 50};
+
+        // 50, 40, 30, 20, 10
+        //1: 50
+        //2:40
+        //3: 30
+        //....
+
+        mostrarAlReves(numeros);
+    }
+
+    public static void mostrarAlReves(int[] numeros){
+
+        for (int i = numeros.length-1; i >=0; i--){
+            System.out.println("posición " + i +  " : " + numeros[i] );
+        }
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class Boletin {
+
+    public static void main(String[] args) {
+
+        int estudiantes = leerPostivo("¿Cuántos estudiantes? ");
+        int notasPorEstudiante = leerPostivo("¿Cuántas notas por estudiante? ");
+
+        double [][] notas = new double[estudiantes][notasPorEstudiante];
+
+        llenar(notas);
+        promedioPorEstudiantes(notas);
+        promedioPorNota(notas);
+    }
+    public static int leerPostivo(String mensaje){
+        int numero = Entrada.leerEntero(mensaje);
+
+        while ( numero <= 0){
+            System.out.println("Debe ser mayor que 0. ");
+            numero = Entrada.leerEntero(mensaje);
+        }
+        return numero;
+    }
+
+    public static double leerNotaValida(String mensaje) {
+        double nota = Entrada.leerDecimal(mensaje);
+
+        while (nota < 0 || nota > 5) {
+            System.out.println("Nota inválida. Debe estar entre 0 y 5. ");
+            nota = Entrada.leerDecimal(mensaje);
+        }
+        return nota;
+    }
+    public static void llenar(double[][] notas){
+        for ( int fila = 0; fila < notas.length; fila++){ // 2= 0, 3, 4
+            for (int col = 0; col < notas[fila].length; col++){
+                notas[fila][col] = leerNotaValida("Nota" + (col + 1)  + "del estudiante " + (fila + 1) + ": ");
+            }
+        }
+    }
+
+    public static void promedioPorEstudiantes(double[][] notas) {
+        for (int fila = 0; fila < notas.length; fila++) {
+            double suma = 0;
+            for (int col = 0; col < notas[fila].length; col++) {
+                suma += notas[fila][col];
+            }
+            System.out.println("Promedio del estudiante " + (fila + 1) + ": " + suma / notas[fila].length);
+
+        }
+    }
+
+
+
+    public static void promedioPorNota(double[][] notas){
+        for ( int col = 0; col < notas[0].length; col++){
+            double suma = 0;
+
+            for (int fila = 0; fila < notas.length; fila++){
+                suma += notas[fila][col];
+            }
+            System.out.println("Promedio de la nota " + (col + 1) + ": " + suma/ notas.length);
+        }
+
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class BuscarNumero {
+
+    public static void main (String[] args){
+
+        int [] numeros = {12, 7, 25, 3, 18};
+        //                 0. 1.  2. 3.  4
+
+        int buscado = Entrada.leerEntero(" ¿Qué número quieres buscar ? "); // 25
+
+        int posicion = buscar (numeros, buscado);
+
+        if (posicion == -1){
+            System.out.println("El " + buscado + " no está en el arreglo. ");
+        } else {
+            System.out.println("El " + buscado + " está en la posición " + posicion + ".");
+        }
+    }
+
+    public static  int buscar ( int[] numeros, int buscado){
+        for (int i = 0; i < numeros.length; i++){
+            if(numeros[i] == buscado){
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+public class BuscarReprobado {
+
+    public static void main (String[] args){
+        int total = Entrada.leerEntero("¿Cuántos Ss hay? ");
+
+        boolean hayReprobado = revisarNotas(total);
+
+
+
+        if (hayReprobado) {
+            System.out.println("Hay al menos un estudiante reprobado en la clase :( ");
+        }else {
+            System.out.println("Todos aprobaron :) ");;
+        }
+    }
+
+    public static boolean revisarNotas(int total){
+
+        boolean hayReprobado = false;
+
+        for(int i = 1; i <= total; i++){
+            double nota = Entrada.leerDecimal("Nota del estudiante" + i + ": ");
+
+            if ( nota < 3 ){
+                hayReprobado = true;
+            }
+        }
+
+        return hayReprobado;
+
+    }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package repasoparcial;
+
+public class Cafeteria {
+
+    public static void main (String[] args){
+
+        // abstracción: El gasto promedio por cliente y su clasificación
+        //el total vendido en el mes y el # de clientes atendidos.
+
+        //Descomposición: 1. Leer total vendidos, 2. # total de clientes, 3.Calcular promedio, 4. Mostrar resultado
+
+        // Reconocimeiento de patrones: Leer datos, scanner, leer int, double... etc
+
+        double totalVendido = Entrada.leerDecimal("Total vendido en el mes: ");
+        int clienteAtendidos = Entrada.leerEntero("Clientes atendidos: ");
+
+        double promedio = totalVendido / clienteAtendidos;
+
+
+
+        if (promedio <=15000){
+            System.out.println("Gasto promedio bajo: " + promedio);
+        }else {
+            System.out.println("Gasto promedio alto: " + promedio);
+        }
+
+
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package funcionesydecisiones;
+
+public class CalculadoraAhorro {
+
+    // Función 1 : recibir ingreso y gasto, devuleve cuanto se ahorra al mes
+    public static double calcularAhorroMensual(double ingreso, double gasto) {
+        return ingreso - gasto;
+    }
+
+    // Funcion 2 : recibir el ahorro mensual , devuleve el ahorro proyecto a un año
+    public static double calcularAhorroAnual(double ahorroMensual) {
+
+        return ahorroMensual * 12;
+    }
+
+        public static void main (String[] args) {
+
+        double ingreso = Entrada.leerDecimal("Ingreso mensual: ");
+        double gasto = Entrada.leerDecimal("Gasto mensual: ");
+
+        // Aquí está el cierre del tema: 1 Funcion usa el resultado de la otra función
+            double ahorroMes = calcularAhorroMensual(ingreso,gasto );
+            double ahorroAnio = calcularAhorroAnual(ahorroMes);
+
+
+            System.out.println("--- Calculadora de ahorro -------");
+            System.out.println("Ahorro mensual: " +  ahorroMes);
+            System.out.println("Ahorro proyecto en un año: " + ahorroAnio);
+
+
+        }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package secuencialyfunciones;
+
+// que tenemos que poner aqui?? que voy a importar?
+
+public class CalculadoraPropina {
+
+    //Que tiene que ir dentro de todas las clases?
+    // Aqui llamo a la funcion que voy a utilizar que importe
+
+    //---- Aquí sigue el orden de como el mesero haría las cuentas
+    // INFRAESTRUCTURA, PUEDO USAR ALGO DEL EJER PASADO??
+
+
+    // LLAMO al scanner para preguntarle al cliente
+
+    // ---- FUNCIONES ---
+    // Primera funcion , que necesito hacer primero ???
+    // Que paso necesito despues ??
+
+    // AHORA, voy a generar el mensaje, que datos necesito por defecto ? - arriba me dice
+    // que me retorna el mensaje?
+
+    //POR ULTIMO - imprimo el mensaje con System.out
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class CalculoEnvio {
+    // Quiero que este programa me calcule el envio si en naciona p internacional
+
+    public static void main (String[] args){
+        boolean esInternacional = Entrada.leerBooleano("¿El envio es internacional ??:  (True/False))");
+        double peso = Entrada.leerDecimal("peso del paquete es en Kg:  ");
+
+
+        double costo = calcularCostoEnvio (esInternacional, peso);
+
+        System.out.println("Costo del envío es: " + costo);
+
+    }
+
+    public static double calcularCostoEnvio (boolean esInternacional, double peso){
+
+        double costo;
+
+        if (esInternacional){
+            //Internacional
+            if(peso<= 2){
+                costo=80000;
+            }else{
+                costo = 80000 + (peso - 2) *25000;
+            }
+        } else {
+            // Envío Nacional
+            if(peso<=2){
+                costo = 15000;
+            }else{
+                costo= 15000 + (peso - 2 ) *5000;
+            }
+        }
+
+        return costo;
+    }
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class CalculoEnvio {
+    // Quiero que este programa me calcule el envio si en naciona p internacional
+
+    public static void main (String[] args){
+        boolean esInternacional = Entrada.leerBooleano("¿El envio es internacional ??:  (True/False))");
+        double peso = Entrada.leerDecimal("peso del paquete es en Kg:  ");
+
+
+        double costo = calcularCostoEnvio (esInternacional, peso);
+
+        System.out.println("Costo del envío es: " + costo);
+
+    }
+
+    public static double calcularCostoEnvio (boolean esInternacional, double peso){
+
+        double costo;
+
+        if (esInternacional){
+            //Internacional
+            if(peso<= 2){
+                costo=80000;
+            }else{
+                costo = 80000 + (peso - 2) *25000;
+            }
+        } else {
+            // Envío Nacional
+            if(peso<=2){
+                costo = 15000;
+            }else{
+                costo= 15000 + (peso - 2 ) *5000;
+            }
+        }
+
+        return costo;
+    }
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase2;
+
+import java.util.Scanner;
+
+public class CarneDigital {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("¿Cómo te llamas? ");
+        String nombre = teclado.nextLine();
+
+        System.out.print("¿Cuántos años tienes? ");
+        int edad = teclado.nextInt();
+        teclado.nextLine(); // limpia el salto de línea que deja nextInt()
+
+        System.out.print("¿Cuál es tu color favorito? ");
+        String colorFavorito = teclado.nextLine();
+
+        System.out.println();
+        System.out.println("***********************************");
+        System.out.println("*                                 *");
+        System.out.println("*          CARNÉ DIGITAL          *");
+        System.out.println("*                                 *");
+        System.out.println("***********************************");
+        System.out.println("  Nombre : " + nombre);
+        System.out.println("  Edad   : " + edad);
+        System.out.println("  Color  : " + colorFavorito);
+        System.out.println("***********************************");
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class ClasificacionDiaSemana {
+
+    public static void main (String[] args){
+        int dia = Entrada.leerEntero ("escribe el # del día ( 1= Lunes, 2= martes, ..... 7= domingo): ");
+
+        String tipoDia= clasificarDia(dia);
+
+        System.out.println("Este mes tiene: " + tipoDia);
+
+    }
+
+    public static String clasificarDia (int dia){
+
+        String tipoDia;
+
+
+        switch (dia){
+            //dia laboral : lunes, martes, mierc, jueves, y viernes
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                tipoDia = "Día laboral";
+                break;
+
+            case 6:
+            case 7:
+                tipoDia = "Fin de semana";
+                break;
+
+            default:
+                tipoDia = "No valido";
+                break;
+
+
+        }
+        return  tipoDia;
+
+
+    }
+}
+
+
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class ClasificacionEntradaCine {
+
+    public static void main (String[] args){
+        int edad = Entrada.leerEntero("Edad del espectador: ");
+        boolean esFuncion3D = Entrada.leerBooleano("¿Es función 3D (True/False");
+
+
+        double valorEntrada = calcularValorEntrada (edad, esFuncion3D);
+
+        System.out.println("valor de la entrada: " + valorEntrada);
+
+    }
+
+    public static double calcularValorEntrada ( int edad , boolean esFuncion3D) {
+
+        double valor;
+
+        if (edad < 12) { //->118
+            //Categoria niños
+            if (esFuncion3D) { // True
+                valor = 12000;
+            } else {
+                valor = 8000;
+            }
+
+        } else if (edad < 60) {
+            //Categoria adultos
+        if (esFuncion3D) { // False
+            valor = 20000;
+        } else {
+           valor = 15000;
+        }
+    }else{
+
+        //Categoria adulto Mayor
+        if (esFuncion3D) { // True
+            valor = 14000;
+        } else {
+            valor = 10000;
+        }
+    }
+
+
+        return valor;
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class ClasificacionEntradaCine {
+
+    public static void main (String[] args){
+        int edad = Entrada.leerEntero("Edad del espectador: ");
+        boolean esFuncion3D = Entrada.leerBooleano("¿Es función 3D (True/False");
+
+
+        double valorEntrada = calcularValorEntrada (edad, esFuncion3D);
+
+        System.out.println("valor de la entrada: " + valorEntrada);
+
+    }
+
+    public static double calcularValorEntrada ( int edad , boolean esFuncion3D) {
+
+        double valor;
+
+        if (edad < 12) { //->118
+            //Categoria niños
+            if (esFuncion3D) { // True
+                valor = 12000;
+            } else {
+                valor = 8000;
+            }
+
+        } else if (edad < 60) {
+            //Categoria adultos
+        if (esFuncion3D) { // False
+            valor = 20000;
+        } else {
+           valor = 15000;
+        }
+    }else{
+
+        //Categoria adulto Mayor
+        if (esFuncion3D) { // True
+            valor = 14000;
+        } else {
+            valor = 10000;
+        }
+    }
+
+
+        return valor;
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase3;
+
+import java.util.Scanner;
+
+public class ComparadorDePrecios {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Precio del producto A: ");
+        double precioA = teclado.nextDouble();
+
+        System.out.print("Precio del producto B: ");
+        double precioB = teclado.nextDouble();
+
+        System.out.println("\n--- Comparador de Precios ---");
+        System.out.println("¿El producto A es más barato? " + (precioA < precioB));
+        System.out.println("¿El producto B es más barato? " + (precioB < precioA));
+        System.out.println("¿Tienen el mismo precio? " + (precioA == precioB));
+        System.out.println("¿Son diferentes? " + (precioA != precioB));
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+public class ContarAprobados {
+
+    public static void main (String[] args){
+
+        int total = Entrada.leerEntero("¿ Cuántos SS hay?  "); //204 //35 //17
+
+        int aprobados = contarAprobados(total);
+
+        //  int aprobados = contarAprobados(total);
+
+        //Aprobaron 4 de 5 estudiantes
+        System.out.println(" Aprobaron  " + aprobados + " de " + total + " estudiantes. ");
+    }
+
+    public static int contarAprobados( int total){
+
+        int aprobados = 0;
+
+        for (int i= 1; i<= total; i++ ){
+
+            double nota = Entrada.leerDecimal("Nota del estudiante" +i+ ": ");
+
+            if (nota >= 3.0){
+                aprobados++;
+            }
+
+        }
+        return aprobados;
+    }
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class ContarOcurrencias {
+
+    public static void main (String[] args){
+
+        int[] edades = {18, 20, 18, 25, 18, 30};
+        //.             0.  1.   2.  3.  4.
+        //contador ==18 1.  1.   2.  2.  3.  3 = 3
+        //contador ==5. 0.   0.  0.  0.  0.  0 = 0
+
+        int valor = Entrada.leerEntero("¿ Qué edad quieres contar? "); // 18
+
+        int veces = contarVeces (edades, valor);
+
+        System.out.println("La edad " + valor + " aparece " + veces + " veces. ");
+    }
+
+    public static int contarVeces(int[] datos, int valor){
+        int contador = 0;
+
+        for (int i = 0; i < datos.length; i++){
+            if (datos[i] == valor){
+                contador++;
+            }
+        }
+
+        return contador;
+    }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+public class CuentaRegresiva {
+
+        //While
+
+    public static void main (String[] args){
+
+        int inicio = Entrada.leerEntero("Desde que # empieza la cuenta regresiva: ");
+
+        cuentaRegresiva(inicio);
+
+    }
+
+    public static void cuentaRegresiva (int inicio){
+
+        int contandor = inicio;
+
+        while ( contandor >= 1){
+            System.out.println(contandor);
+            contandor--;
+        }
+
+        System.out.println("¡Despegueeee!");
+    }
+
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package funcionesydecisiones;
+
+public class DescuentoCine {
+    public static void main (String[] args){
+
+        int edad = Entrada.leerEntero("Ingresa tu edad: ");
+        boolean esEstudiante = Entrada.leerBooleano("¿Eres estudiante? (True/False): ");
+
+
+        if(edad <=12 || edad >= 60 || esEstudiante){
+            System.out.println("Tienes descuento en la boleta de cine :).");
+        }else {
+            System.out.println("Pagas completo, sorry :(");
+        }
+
+    }
+
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase2;
+
+public class EjemplosClase {
+    public static void main(String[] args) {
+
+        // ===== 1. Comentarios =====
+
+        // Esto es un comentario de una sola línea, Java lo ignora al ejecutar
+
+        /* Esto es un comentario de bloque o multilínea,
+           puede escribirse en varias líneas */
+
+        /** Este es un comentario de documentación (Javadoc),
+         * se usa para documentar clases y métodos */
+
+
+  //   /*
+        // ===== 2. Creación de variables =====
+
+        String nombre = "Valentina";
+        int edad = 20;
+        double estatura =1.78;
+        char inicial = 'V';
+        boolean esProfesor = true ;
+
+        System.out.println("===== Variables =====");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad);
+        System.out.println("Estatura: " + estatura);
+        System.out.println("Inicial: " + inicial);
+        System.out.println("¿Es Profesor?: " + esProfesor);
+
+
+
+    //   */
+
+     /*
+
+        // ===== 3. Secuencias de escape =====
+        System.out.println("\n===== Secuencias de escape =====");
+
+        // \n -> salto de línea
+        System.out.println("Primera línea\nSegunda línea");
+
+        // \t -> tabulación
+        System.out.println("Nombre:\tValentina");
+        System.out.println("Edad:\t60");
+
+        // \" -> comillas dobles dentro de un String
+        System.out.println("Ella dijo: \"Hola Mundo\"");
+
+        // dentro de un String, la comilla simple NO necesita escaparse
+        System.out.println("La letra 'a' es una vocal");
+
+        // \' sí es necesaria dentro de un char, porque un char va entre comillas simples
+        char comillaSimple = '\'';
+        System.out.println("Este es un char de comilla simple: " + comillaSimple);
+
+        // \\ -> barra invertida
+        System.out.println("La ruta del archivo es: C:\\Usuarios\\Valentina");
+
+        // \b -> retrocede el cursor un espacio (el efecto se ve distinto según la consola)
+        System.out.println("Ejemplo de \\b: Hola\bMundo");
+
+
+      */
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase3;
+
+public class EjemplosFuncionesMath {
+    public static void main(String[] args) {
+        System.out.println("===== Funciones de la clase Math =====");
+
+        double numero1 = 25;
+        double raiz = Math.sqrt(numero1);
+        System.out.println("Raíz cuadrada de " + (int) numero1 + " -> " + raiz);
+
+        double numero2 = 27;
+        double raizCubica = Math.cbrt(numero2);
+        System.out.println("Raíz cúbica de " + (int) numero2 + " -> " + raizCubica);
+
+        double base = 2;
+        double exponente = 3;
+        double potencia = Math.pow(base, exponente);
+        System.out.println((int) base + " elevado a " + (int) exponente + " -> " + potencia);
+
+        int numeroNegativo = -15;
+        int absoluto = Math.abs(numeroNegativo);
+        System.out.println("Valor absoluto de " + numeroNegativo + " -> " + absoluto);
+
+        int dado = (int) (Math.random() * 6) + 1;
+        System.out.println("Número aleatorio entre 1 y 6 -> " + dado);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase3;
+
+public class EjemplosOperadores {
+    public static void main(String[] args) {
+        int a = 8;
+        int b = 3;
+
+        /*
+        System.out.println("===== Operadores aritméticos =====");
+        System.out.println("a + b = " + (a + b));
+        System.out.println("a - b = " + (a - b));
+        System.out.println("a * b = " + (a * b));
+        System.out.println("a / b = " + (a / b));
+        System.out.println("a % b = " + (a % b));
+        */
+
+       /*
+        System.out.println("\n===== Operadores relacionales =====");
+        System.out.println("a > b  -> " + (a > b));
+        System.out.println("a < b  -> " + (a < b));
+        System.out.println("a == b -> " + (a == b));
+        System.out.println("a != b -> " + (a != b));
+         */
+
+        /*
+        System.out.println("\n===== Operadores lógicos =====");
+        boolean tieneDinero = true;
+        boolean tieneTiempo = false;
+        System.out.println("tieneDinero && tieneTiempo -> " + (tieneDinero && tieneTiempo));
+        System.out.println("tieneDinero || tieneTiempo -> " + (tieneDinero || tieneTiempo));
+        System.out.println("!tieneDinero -> " + (!tieneDinero));
+
+        */
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+import java.util.Scanner;
+
+public class Entrada {
+    private static Scanner teclado = new Scanner(System.in);
+
+    public static int leerEntero(String mensaje) {
+        System.out.print(mensaje);
+        return teclado.nextInt();
+    }
+
+    public static double leerDecimal(String mensaje) {
+        System.out.print(mensaje);
+        return teclado.nextDouble();
+    }
+
+    public static boolean leerBooleano(String mensaje) {
+        System.out.print(mensaje);
+        return teclado.nextBoolean();
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+import java.util.Scanner;
+
+public class Entrada {
+    private static Scanner teclado = new Scanner(System.in);
+
+    public static int leerEntero(String mensaje) {
+        System.out.print(mensaje);
+        return teclado.nextInt();
+    }
+
+    public static double leerDecimal(String mensaje) {
+        System.out.print(mensaje);
+        return teclado.nextDouble();
+    }
+
+    public static boolean leerBooleano(String mensaje) {
+        System.out.print(mensaje);
+        return teclado.nextBoolean();
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package parcial2;
+
+public class EntrenamientoCiclismo {
+
+    public static void main(String[] args) {
+        int vueltas = Entrada.leerEntero("¿Cuántas vueltas realizó? ");
+
+        analizarEntrenamiento(vueltas);
+    }
+
+    public static void analizarEntrenamiento(int vueltas) {
+        double total = 0;
+        int rapidas = 0;
+
+        for (int i = 1; i <= vueltas; i++) {
+            double tiempo = Entrada.leerDecimal("Tiempo de la vuelta " + i + " (min): ");
+
+            total += tiempo;
+
+            if (tiempo < 3.0) {
+                rapidas++;
+            }
+        }
+
+        double promedio = total / vueltas;
+
+        System.out.println("Tiempo total: " + total + " min");
+        System.out.println("Promedio por vuelta: " + promedio + " min");
+        System.out.println("Vueltas rápidas: " + rapidas);
+
+        if (promedio <= 3.0) {
+            System.out.println("Ritmo competitivo");
+        } else {
+            System.out.println("Debe mejorar el ritmo");
+        }
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package secuencialyfunciones;
+
+public class EquipoCocina {
+
+    public static void main(String[] args) {
+        System.out.println(iniciarCocina("sopa"));
+        System.out.println("Mezcle: " + mezclarIngredientes("agua", "sal", "zanahoria"));
+        System.out.println(servir(25));
+        System.out.println(preparaPostre("flan"));   // línea nueva que ellos agregan
+    }
+
+    static String iniciarCocina(String plato) {
+        return "Cocinando: " + plato;
+    }
+
+    static String mezclarIngredientes(String a, String b, String c) {
+        return a + "-" + b + "-" + c;
+    }
+
+    static String servir(int tiempo) {
+        return "Listo en " + tiempo + " minutos. A comer!";
+    }
+
+    // NUEVO — función de postre (la agregan ellos)
+    static String preparaPostre(String postre) {
+        return "De postre: " + postre + ". Que lo disfruten!";
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+public class EsPrimo {
+
+    public static void main (String[] args){
+
+        int numero = Entrada.leerEntero("Escribe un número: ");
+
+        if (esPrimo(numero)){
+            //3                     3 es primo
+            System.out.println(numero + " es primo. ");
+        }else {
+            //
+            System.out.println(numero + " no es primo. ");
+        }
+    }
+
+    public static boolean esPrimo(int n){
+
+        if (n <2){
+            return false;
+        }
+
+        boolean primo = true;
+
+        for (int i = 2; i < n; i++){
+
+            if (n % i == 0){
+                primo=false;
+            }
+        }
+        return primo;
+
+
+    }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package parcial2;
+
+public class EstacionMeteorologica {
+
+    public static void main(String[] args) {
+        int lecturas = Entrada.leerEntero("¿Cuántas lecturas hay? ");
+
+        analizarClima(lecturas);
+    }
+
+    public static void analizarClima(int lecturas) {
+        boolean todasTempladas = true;
+        boolean hayCalorExtremo = false;
+
+        for (int i = 1; i <= lecturas; i++) {
+            double temp = Entrada.leerDecimal("Temperatura " + i + " (°C): ");
+
+            if (temp <= 20) {
+                todasTempladas = false;
+            }
+
+            if (temp > 35) {
+                hayCalorExtremo = true;
+            }
+        }
+
+        if (hayCalorExtremo) {
+            System.out.println("ALERTA: se registró calor extremo");
+        } else if (todasTempladas) {
+            System.out.println("Clima templado constante");
+        } else {
+            System.out.println("Clima variable");
+        }
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase2;
+
+import java.util.Scanner;
+
+public class FichaMascota {
+    public static void main(String[] args) {
+
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Nombre de la mascota: ");
+        String nombre = teclado.nextLine();
+
+        //también pueden poner el nombre , edad y o que quieran por defecto.
+
+        System.out.print("Edad (en años): ");
+        int edad = teclado.nextInt();
+
+        System.out.print("Peso (en kg): ");
+        double peso = teclado.nextDouble();
+
+        System.out.println("--- Ficha de la mascota ---");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad + " años");
+        System.out.println("Peso: " + peso + " kg");
+
+
+
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package repasoparcial;
+
+public class InscripcionCursoVacacional {
+  /*  Abstración: si la persona puede inscrbirse y si puede, cuanto dedbe pagar
+
+    la edad, si tiene autorizacion de un adulto, valor inscripcion, fecha de pago
+
+    Descomposición: Leer edad, LeerAutorizacion, Evaluar si es adolescente autorizado, puede inscribirse, leer si el pago es tardio, calcular con el valor de recargo, mostrar resultado. +.5
+
+    Reconocimeinto:No reutilice codigo, pero podria reutilizar,  Scanner, Leer Entero , Leer decimal , leerbooleano.
+
+   */
+
+    public static double calcularValorInscripcion(boolean pagoTardio){
+        double valorBase = 150000;
+        if (pagoTardio){
+            return valorBase * 1.08;
+        } else {
+            return valorBase;
+        }
+    }
+
+    public static void main(String[] args){
+
+        int edad = Entrada.leerEntero("Edad del estudiante: ");
+        boolean tieneAutorizacion = Entrada.leerBooleano(" tiene autorizacion de un adulto?  (True/False): ");
+        boolean pagoTardio = Entrada.leerBooleano("El  pago se hizo despues del día 10? (True/Flase: ");
+
+
+        boolean esNino = edad>= 6 && edad <=12;
+        boolean esAdolescenteAutorizado = edad >=13 && edad <= 17 && tieneAutorizacion;
+        boolean puedeInscribirse = esNino || esAdolescenteAutorizado;
+
+        System.out.println("Puede inscribirse? " + puedeInscribirse);
+
+        if(puedeInscribirse){
+            double valorFinal = calcularValorInscripcion(pagoTardio);
+            System.out.println("Valor a pagar : " + valorFinal);
+        }
+
+
+
+    }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase3;
+
+import java.util.Scanner;
+
+public class LadoDelTerreno {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Área del terreno cuadrado (m2): ");
+        double area = teclado.nextDouble();
+
+        double lado = Math.sqrt(area);
+
+        System.out.println("Cada lado del terreno mide: " + lado + " metros");
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase3;
+
+import java.util.Scanner;
+
+public class MatriculaMateria {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Promedio académico: ");
+        double promedio = teclado.nextDouble();
+
+        System.out.print("Créditos aprobados: ");
+        int creditos = teclado.nextInt();
+
+        boolean cumplePromedio = promedio >= 3.0;
+        boolean cumpleCreditos = creditos >= 20;
+        boolean puedeMatricular = cumplePromedio && cumpleCreditos;
+
+        System.out.println("\n--- Matrícula de Materia ---");
+        System.out.println("¿Cumple el promedio mínimo? " + cumplePromedio);
+        System.out.println("¿Cumple los créditos mínimos? " + cumpleCreditos);
+        System.out.println("¿Puede matricular la materia? " + puedeMatricular);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class MayorYMenor {
+
+    public static  void main (String[] args){
+        int [] numeros = {3, 8, 1, 9, 4};
+
+        int mayor = buscarMayor(numeros);
+        int menor = buscarMenor(numeros);
+
+        System.out.println("El mayor es: " + mayor) ;
+        System.out.println("El menor es: " + menor) ;
+    }
+    public static int buscarMayor(int[] numeros){
+        int mayor = numeros [0];
+
+        for (int i = 1; i < numeros.length; i++){
+            if (numeros[i] > mayor){
+                mayor = numeros[i];
+                // ( 8 > 3 = mayor = 8 ) == numeros[i]
+            }
+
+        }
+        return mayor;
+    }
+
+    public static int buscarMenor(int[] numeros){
+        int menor = numeros [0];
+
+        for (int i = 1; i < numeros.length; i++) {
+            if (numeros[i] < menor) {
+                menor = numeros[i];
+            }
+        }
+
+        return menor;
+    }
+
+    }
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class MenuRestaurante {
+
+    public static void main(String[] args) {
+
+        int opcion = Entrada.leerEntero("Elige una opción del menú (1-4)");
+
+        String pedido = obtenerPedido(opcion);
+
+
+        System.out.println("Pediste:  " + pedido);
+
+    }
+
+    public static String obtenerPedido(int opcion) {
+
+        String pedido;
+
+        switch (opcion) {
+            case 1:
+                pedido = "hamburguesa - $18000  ";
+                break;
+
+            case 2:
+                pedido = "salchipapa - $27000";
+                break;
+
+            case 3:
+                pedido = "churrasco - $60000";
+                break;
+
+            case 4:
+                pedido = "sancocho de espinazo - $30000";
+                break;
+
+            default:
+                pedido = "Opción no válida";
+                break;
+
+        }
+        return pedido;
+
+    }
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class MiAventura {
+
+    public static void main(String[] args) {
+        boolean vaAIzquierda = Entrada.leerBooleano("Estás en un bosque. ¿Vas a la izquierda? (true = izquierda, false = derecha): ");
+
+        if (vaAIzquierda) {
+            // Camino izquierdo: te encuentras un río
+            boolean buscaPuente = Entrada.leerBooleano("Encuentras un río. ¿Buscas un puente? (true = sí, false = cruzas nadando): ");
+            if (buscaPuente) {
+                System.out.println("Cruzas seguro por el puente. ¡Sigues tu camino!");
+            } else {
+                System.out.println("El río tiene corriente fuerte... ¡No lo logras!");
+            }
+        } else {
+            // Camino derecho: te encuentras una cueva
+            boolean llevaAntorcha = Entrada.leerBooleano("Encuentras una cueva. ¿Llevas antorcha? (true/false): ");
+            if (llevaAntorcha) {
+                System.out.println("Con luz encuentras el tesoro. ¡Ganaste!");
+            } else {
+                System.out.println("Está muy oscuro, te pierdes en la cueva.");
+            }
+        }
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class MiAventura {
+
+    public static void main(String[] args) {
+        boolean vaAIzquierda = Entrada.leerBooleano("Estás en un bosque. ¿Vas a la izquierda? (true = izquierda, false = derecha): ");
+
+        if (vaAIzquierda) {
+            // Camino izquierdo: te encuentras un río
+            boolean buscaPuente = Entrada.leerBooleano("Encuentras un río. ¿Buscas un puente? (true = sí, false = cruzas nadando): ");
+            if (buscaPuente) {
+                System.out.println("Cruzas seguro por el puente. ¡Sigues tu camino!");
+            } else {
+                System.out.println("El río tiene corriente fuerte... ¡No lo logras!");
+            }
+        } else {
+            // Camino derecho: te encuentras una cueva
+            boolean llevaAntorcha = Entrada.leerBooleano("Encuentras una cueva. ¿Llevas antorcha? (true/false): ");
+            if (llevaAntorcha) {
+                System.out.println("Con luz encuentras el tesoro. ¡Ganaste!");
+            } else {
+                System.out.println("Está muy oscuro, te pierdes en la cueva.");
+            }
+        }
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+public class MiniTienda {
+
+    // PC: Abstracción,Descomposicion reconocimiento de patrones
+    //A: se solicita un menú que se repita y lleve la cuenta del total, es relevante la opción elegida y el total acumulado.
+    //D: Iniciar toal, mostrar el menú, leer opcion, Según la op: sumar café, pan, mostrar el total, o salir. Repetir hasta que la opcion sea 4 o sea invalida
+    //RP: Switch, do While, , acumulador, Entrada para lectura (repo)
+
+    public static  void main (String[] args){
+        ejecutarMenu();
+
+    }
+
+    public static void ejecutarMenu(){
+        double total = 0;
+        int opcion;
+
+        do {
+
+            System.out.println("1. Café($3.000), 2. Pan ($2.000),  3. Ver total,  4. Salir del menú ");
+            opcion = Entrada.leerEntero("Elige una opción:  ");
+
+            switch (opcion){
+                case 1:
+                    total += 3000;
+                    System.out.println("Café agregado. ");
+                    break;
+                case 2:
+                    total += 2000;
+                    System.out.println("Pan agregado");
+                    break;
+                case 3:
+                    System.out.println("Total actual $ " + total);
+                    break;
+                case 4:
+                    System.out.println("Gracias, Total final $: " + total);
+                    break;
+                default:
+                    System.out.println("Opción no válida. ");
+                    break;
+
+            }
+        }while (opcion != 4);
+
+
+
+    }
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class NotasDelGrupo {
+
+    public static  void main (String[] args){
+
+        double[] notas = new double[5];
+
+        leerNotas(notas);
+        mostrarResumen(notas);
+    }
+
+    public static void leerNotas(double[] notas){
+        for (int i = 0; i < notas.length; i++){
+
+            notas[i] = Entrada.leerDecimal("Nota del estudiante " + (i + 1) + ": ");
+            //                                       Nota del estudiante 1:
+            //
+        }
+
+    }
+
+    public static void mostrarResumen (double[] notas ){
+
+        double suma = 0;
+        int aprobados = 0;
+
+
+        for (int i = 0; i < notas.length; i++){
+            suma += notas[i];
+
+            if (notas[i] >= 3.0){
+
+                aprobados ++;
+            }
+        }
+
+        double promedio = suma / notas.length;
+
+        System.out.println("Promedio del grupo: " + promedio);
+        System.out.println("Aprobados: " +aprobados + " de " + notas.length);
+
+
+    }
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package parcial2;
+
+public class Parqueadero {
+
+    public static void main(String[] args) {
+        ejecutarMenu();
+    }
+
+    public static void ejecutarMenu() {
+        double recaudo = 0;
+        int carros = 0;
+        int motos = 0;
+        int opcion;
+
+        do {
+            System.out.println("1. Entra carro ($5.000)  2. Entra moto ($2.000)  3. Ver resumen  4. Salir");
+            opcion = Entrada.leerEntero("Elige una opción: ");
+
+            switch (opcion) {
+                case 1:
+                    recaudo += 5000;
+                    carros++;
+                    System.out.println("Carro registrado.");
+                    break;
+                case 2:
+                    recaudo += 2000;
+                    motos++;
+                    System.out.println("Moto registrada.");
+                    break;
+                case 3:
+                    System.out.println("Recaudo: $" + recaudo + " | Carros: " + carros + " | Motos: " + motos);
+                    break;
+                case 4:
+                    System.out.println("Cierre del día. Recaudo final: $" + recaudo + " | Carros: " + carros + " | Motos: " + motos);
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+                    break;
+            }
+        } while (opcion != 4);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class PedidoCafeteria {
+
+    public static void main(String[] args) {
+        int categoria = Entrada.leerEntero("Cateogria (1= Bebida, 2=Comida): ");
+        int producto = Entrada.leerEntero("Producto (1, 2 o 3): ");
+
+        String pedido = obtenerPedido(categoria, producto);
+
+        System.out.println(" Pedido: " + pedido);
+    }
+
+    public static String obtenerPedido(int categoria, int producto) {
+
+        String pedido;
+
+        switch (categoria) {
+            case 1:
+
+                switch (producto) {
+                    case 1:
+                        pedido = "Café - $4000";
+                        break;
+
+                    case 2:
+                        pedido = "Chocolate - $5000";
+                        break;
+
+                    case 3:
+                        pedido = "Juguito de mora - - $6000";
+                        break;
+
+                    default:
+                        pedido = "Bebida no válida";
+                        break;
+
+                }
+                break;
+
+            case 2:
+
+                switch (producto) {
+                    case 1:
+                        pedido = "sandwich - $9000";
+                        break;
+                    case 2:
+                        pedido = "empanada - $3500";
+                        break;
+                    case 3:
+                        pedido = "torta - $5000";
+                        break;
+                    default:
+                        pedido = "comida no válida";
+
+                }
+                break;
+
+            default:
+                pedido = "Categoria no válida";
+                break;
+        }
+
+        return pedido;
+
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class Piramide {
+
+    public static void main(String[] args) {
+
+        int filas = Entrada.leerEntero("¿Cuántas filas tiene la pirámide?"); // filas
+
+        dibujarPiramide(filas);
+
+    }
+    public static void dibujarPiramide(int filas){
+
+        for (int fila = 1; fila <= filas; fila++){ // fila
+            for ( int esp =1; esp <= filas - fila; esp++){
+                System.out.print(" ");
+            }
+            for ( int est = 1; est <= 2 * fila -1; est++){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+    }
+}
+//.  *
+//. ***
+// *****
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class PrecioBebida {
+
+    public static void main(String[] args) {
+
+        int bedida = Entrada.leerEntero("Bebida ( 1= Café, 2=Chocolate, 3=Carajillo");
+        boolean esGrande = Entrada.leerBooleano("¿Tamaño grande? ( True/False): ");
+
+
+        double precio = calcularPrecio (bedida, esGrande);
+
+        System.out.println("Precio: $ " + precio);
+
+    }
+
+    public static double calcularPrecio (int bedida, boolean esGrande){
+
+        double precio;
+
+        switch (bedida) { //RAMA 1
+            case 1:
+                if (esGrande){
+                    precio = 6000;
+                }else {
+                    precio= 4000;
+                }
+                break;
+            case 2:
+                if (esGrande){
+                    precio = 7000;
+                } else {
+                    precio = 5000;
+                }
+                break;
+            case 3:
+                if (esGrande){
+                    precio = 8000;
+                }else {
+                    precio = 6000;
+                }
+                break;
+            default:
+                precio = 0;
+                break;
+        }
+
+        return precio;
+
+
+
+    }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase2;
+
+import java.util.Scanner;
+
+public class PrecioConIVA {
+    public static void main(String[] args) {
+        final double IVA = 0.19;
+
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Precio del producto: ");
+        double precio = teclado.nextDouble();
+
+        double valorIva = precio * IVA;
+        double precioFinal = precio + valorIva;
+
+        System.out.println("Valor del IVA: " + valorIva);
+        System.out.println("Precio final: " + precioFinal);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package secuencialyfunciones;
+
+import java.util.Scanner;
+
+public class ReciboCafeteria {
+
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+
+        int cantidadCafes = ingresarEntero(teclado, "¿Cuántos cafés vas a comprar? ");
+        double precioUnitario = ingresarReal(teclado, "¿Cuál es el precio de cada café? ");
+        double total = calcularTotal(cantidadCafes, precioUnitario);
+        String mensaje = generarMensaje(cantidadCafes, precioUnitario, total);
+        mostrarMensaje(mensaje);
+    }
+
+    public static int ingresarEntero(Scanner teclado, String pregunta) {
+        System.out.print(pregunta);
+        return teclado.nextInt();
+    }
+
+    public static double ingresarReal(Scanner teclado, String pregunta) {
+        System.out.print(pregunta);
+        return teclado.nextDouble();
+    }
+
+    public static double calcularTotal(int cantidadCafes, double precioUnitario) {
+        return cantidadCafes * precioUnitario;
+    }
+
+    public static String generarMensaje(int cantidadCafes, double precioUnitario, double total) {
+        return "Compraste " + cantidadCafes + " cafés a $" + precioUnitario + " cada uno. Total a pagar: $" + total;
+    }
+
+    public static void mostrarMensaje(String mensaje) {
+        System.out.println(mensaje);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package secuencialyfunciones;
+
+import java.util.Scanner;
+
+    public class ReciboDomicilio {
+
+        public static void main(String[] args) {
+            Scanner teclado = new Scanner(System.in);
+
+            double valorPedido = ingresarReal(teclado, "¿Cuál es el valor del pedido? ");
+            double porcentajeDescuento = ingresarReal(teclado, "¿Qué porcentaje de descuento tienes (ej. 10)? ");
+            double costoDomicilio = ingresarReal(teclado, "¿Cuánto cuesta el domicilio? ");
+
+            double descuento = calcularDescuento(valorPedido, porcentajeDescuento);
+            double subtotal = calcularSubtotal(valorPedido, descuento);
+            double total = calcularTotal(subtotal, costoDomicilio);
+
+            String mensaje = generarMensaje(valorPedido, descuento, subtotal, costoDomicilio, total);
+            mostrarMensaje(mensaje);
+        }
+
+        public static double ingresarReal(Scanner teclado, String pregunta) {
+            System.out.print(pregunta);
+            return teclado.nextDouble();
+        }
+
+        public static double calcularDescuento(double valorPedido, double porcentaje) {
+            return valorPedido * (porcentaje / 100);
+        }
+
+        public static double calcularSubtotal(double valorPedido, double descuento) {
+            return valorPedido - descuento;
+        }
+
+        public static double calcularTotal(double subtotal, double costoDomicilio) {
+            return subtotal + costoDomicilio;
+        }
+
+        public static String generarMensaje(double valorPedido, double descuento, double subtotal,
+                                            double costoDomicilio, double total) {
+            return "Valor del pedido: $" + valorPedido +
+                    ", descuento: $" + descuento +
+                    ", subtotal: $" + subtotal +
+                    ", domicilio: $" + costoDomicilio +
+                    ", total a pagar: $" + total;
+        }
+
+        public static void mostrarMensaje(String mensaje) {
+            System.out.println(mensaje);
+        }
+    }
+
+
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package repasoparcial;
+
+public class RendimientoAtleta {
+
+    public static double promedioPruebas(double t1, double t2, double t3, double t4) {
+        return (t1 + t2 + t3 + t4) / 4;
+    }
+
+    public static String clasificarRendimiento(double promedio) {
+        if (promedio < 5) {
+            return "Elite";
+        } else if (promedio <= 8) {
+            return "Competitivo";
+        } else {
+            return "Recreativo";
+        }
+    }
+
+    public static void main(String[] args) {
+        double t1 = Entrada.leerDecimal("Tiempo prueba 1 (min): ");
+        double t2 = Entrada.leerDecimal("Tiempo prueba 2 (min): ");
+        double t3 = Entrada.leerDecimal("Tiempo prueba 3 (min): ");
+        double t4 = Entrada.leerDecimal("Tiempo prueba 4 (min): ");
+        boolean esSeleccionDepartamental = Entrada.leerBooleano("¿Pertenece a la selección departamental? (true/false): ");
+
+        double promedio = promedioPruebas(t1, t2, t3, t4);
+
+        if (esSeleccionDepartamental) {
+            promedio = promedio - 0.5;
+        }
+
+        String clasificacion = clasificarRendimiento(promedio);
+
+        System.out.println("Promedio ajustado: " + promedio);
+        System.out.println("Clasificación: " + clasificacion);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package repasoparcial;
+
+public class ReservaRestaurante {
+
+    public static double calcularDeposito(int personas, boolean esEntreSemana) {
+        double deposito = personas * 10000;
+        if (esEntreSemana) {
+            return deposito * 0.8;
+        } else {
+            return deposito;
+        }
+    }
+
+    public static void main(String[] args) {
+        int numPersonas = Entrada.leerEntero("Número de personas: ");
+        int diasAnticipacion = Entrada.leerEntero("Días de anticipación: ");
+        boolean tieneAutorizacionGerente = Entrada.leerBooleano("¿Tiene autorización del gerente? (true/false): ");
+
+        boolean grupoEstandar = numPersonas >= 2 && numPersonas <= 8 && diasAnticipacion >= 1;
+        boolean grupoGrandeAutorizado = numPersonas > 8 && tieneAutorizacionGerente;
+        boolean reservaAceptada = grupoEstandar || grupoGrandeAutorizado;
+
+        System.out.println("¿Reserva aceptada? " + reservaAceptada);
+
+        if (reservaAceptada) {
+            boolean esEntreSemana = Entrada.leerBooleano("¿Es un día entre semana (lunes a jueves)? (true/false): ");
+            double deposito = calcularDeposito(numPersonas, esEntreSemana);
+            System.out.println("Valor del depósito: " + deposito);
+        }
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+
+public class ResumenDeNotas {
+
+    public static void main(String[] args) {
+
+        int total = Entrada.leerEntero("¿ Cuántos Estudiantes hay? ");
+
+        mostrarResumen(total);
+
+    }
+
+    public static void mostrarResumen(int total) {
+
+        double suma = 0;
+        int aprobados = 0;
+
+        for (int i = 0; i <= total; i++) {
+
+            double nota = Entrada.leerDecimal("Nota del estudiante " + i + ": ");
+
+            suma += nota;
+
+            if (nota >= 3.0) {
+                aprobados++;
+
+
+            }
+
+        }
+
+        double promedio = suma / total;
+
+        System.out.println(" Promedio del grupo : " + promedio);
+        System.out.println(" Aprobados: " + aprobados + " de " + total);
+
+
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package funcionesydecisiones;
+
+import java.util.Scanner;
+
+public class Reutilizacion {
+
+    //Función para ingresar un número entero
+    public static int ingresarEntero(String mensaje){
+        Scanner sc= new Scanner(System.in);
+        System.out.print(mensaje);
+        int numero= sc.nextInt();
+        return numero;
+    }
+
+    //Función para ingresar un número decimal
+    public static double ingresarDecimal(String mensaje){
+        Scanner sc= new Scanner(System.in);
+        System.out.print(mensaje);
+        double numero= sc.nextDouble();
+        return numero;
+    }
+
+    //Función para ingresar una cadena de texto
+    public static String ingresarTexto(String mensaje){
+        Scanner sc= new Scanner(System.in);
+        System.out.print(mensaje);
+        String texto= sc.nextLine();
+        return texto;
+    }
+
+    //Función para ingresar un booleano
+    public static boolean ingresarBooleano(String mensaje){
+        Scanner sc= new Scanner(System.in);
+        System.out.print(mensaje);
+        boolean texto= sc.nextBoolean();
+        return texto;
+    }
+
+    //Función para imprimir
+    public static void imprimirMensaje(String mensaje){
+        System.out.println(mensaje);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+import javax.swing.plaf.synth.SynthFormattedTextFieldUI;
+
+public class Rombo {
+
+    public static void main(String[] args) {
+
+        int n = Entrada.leerEntero("¿Cuántas filas tiene la mitad de arriba)");
+
+        int [] estrellas = new int [2 * n - 1];
+
+        for ( int i = 0; i < n ; i ++){
+            estrellas[i] = 2 * i + 1;
+            estrellas[estrellas.length -1 -i] = 2 * i + 1;
+        }
+
+        dibujar(estrellas, 2 * n - 1);
+    }
+    public static void dibujar ( int [] estrellas, int ancho){
+        for (int fila = 0; fila < estrellas.length; fila++){
+            int espacios = (ancho - estrellas[fila] / 2);
+
+            for (int j = 0; j < espacios; j++){
+                System.out.print(" ");
+            }
+
+            for ( int j = 0; j < estrellas[fila]; j++){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+//.  *
+//. ***
+// *****
+//  ***
+//.  *
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase3;
+
+public class SimuladorDeDado {
+    public static void main(String[] args) {
+        int dado = (int) (Math.random() * 6) + 1;
+        System.out.println("Tiraste el dado y salió: " + dado);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+public class TablaDeMultiplicar {
+
+        public static void main (String[] args){
+
+            int numero = Entrada.leerEntero("La tabla de qué # quieres ver??  ");
+
+
+            imprimirTabla(numero);
+
+        }
+
+        public static void imprimirTabla(int numero){
+
+            for (int i = 1; i <= 10; i++){
+                System.out.println(numero + "x" + i + "=" + (numero*i));
+            }
+
+
+        }
+
+
+
+
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+import javax.swing.*;
+
+public class TablaDeNotas {
+
+    // [fila][columna]
+    // print:escribe y se queda en la misma linea  vs printLn: escribe y baja a la siguiente linea
+
+    public static void main (String[] args){
+        double [][] notas= {
+                {4.0, 3.0, 5.0},
+                {2.0, 3.0, 1.0},
+                {5.0, 4.0, 3.0}
+        };
+        mostrarTabla(notas);
+    }
+    public static void mostrarTabla(double[][] notas){
+
+        for (int fila = 0; fila < notas.length; fila++){ //1 -> 2 -> 3
+            double suma = 0;
+
+            System.out.print("Estudiante " + (fila + 1) + ": ");
+            //                Estudiante 1:
+
+            for (int col = 0; col < notas[fila].length; col++) { // 4, 3, 5
+                System.out.print(notas[fila][col] + " ");
+                suma += notas[fila][col];
+            }
+
+            double promedio = suma / notas[fila].length;
+            System.out.println("| Promedio: " + promedio);
+        }
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class TiendaRopa {
+
+    public static void main (String[] args){
+
+        boolean esFrecuente = Entrada.leerBooleano("Es cliente frecuente: (True/False): ");
+        double compra = Entrada.leerDecimal("¿Cual fue el valor de su compra:  ");
+
+        double descuento = calcularDescuento (esFrecuente, compra);
+
+        System.out.println("Su descuento es: " + descuento);
+
+    }
+    public static double calcularDescuento (boolean esFrecuente, double compra){
+
+        double porcentaje;
+
+        if (esFrecuente){
+            if (compra >= 200000){
+                porcentaje = 0.15;
+            }else{
+                porcentaje = 0.10;
+            }
+        }else{
+            if(compra >= 200000){
+                porcentaje = 0.05;
+            }else {
+                porcentaje = 0.0;
+            }
+        }
+
+    return compra * porcentaje;
+
+    }
+
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package decisionesanidadas;
+
+public class TipoDeBeca {
+
+    public static void main(String[] args) {
+        double promedio = Entrada.leerDecimal("Promedio del estudiante: ");
+        boolean esDeportista = Entrada.leerBooleano("¿Es deportista de alto rendimiento? (true/false): ");
+
+        String beca = definirBeca(promedio, esDeportista);
+
+        System.out.println("Resultado: " + beca);
+    }
+
+    public static String definirBeca(double promedio, boolean esDeportista) {
+        String beca;
+
+        if (promedio >= 4.5) {
+            if (esDeportista) {
+                beca = "Beca completa";
+            } else {
+                beca = "Beca del 75%";
+            }
+        } else if (promedio >= 4.0) {
+            if (esDeportista) {
+                beca = "Beca del 50%";
+            } else {
+                beca = "Beca del 25%";
+            }
+        } else {
+            beca = "Sin beca";
+        }
+
+        return beca;
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class TopCinco {
+
+    public static void main (String[] args){
+
+        String[] top = {"torta de chcolate", "helado", "muffin", "ensalada de frutas", "malteada"};
+        // length:               0               1         2                3               4
+        mostrarTop(top);
+
+    }
+
+    public static  void mostrarTop (String[] top){
+        System.out.println("Mi top " + top.length + "de postres");
+        // length -----------------------------------------------
+
+        for (int i = 0; i < top.length; i++){
+
+            System.out.println((i+1) + ".  " + top[i]);
+            //                   1. torta de chocolate
+            //                   2. helado
+        }
+
+    }
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+public class TotalDeLaCompra {
+
+    public static void main (String[] args){
+        int cantidad =Entrada.leerEntero(" ¿ Cuántos productos vas a comprar?  ");
+
+        double total = calcularTotal(cantidad);
+
+        if (total >= 100000){
+            total = total * 0.9;
+            System.out.println(" Se aplico un descuento del 10%");
+
+        }
+
+        System.out.println(" Total a pagar: $ " + total);
+    }
+
+    public static double calcularTotal(int cantidad){
+        double total = 0;
+
+        for (int i=1; i <= cantidad; i ++){
+            double precio = Entrada.leerDecimal("PRecio del producto " + i + ": ");
+
+            total += precio;
+
+
+        }
+        return total;
+
+    }
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class Triangulo {
+
+    public static void main(String[] args) {
+
+        int filas = Entrada.leerEntero("¿Cuántas filas tiene el triangulo?"); // 6
+
+        dibujarTriangulo(filas);
+    }
+    public static void dibujarTriangulo(int filas){
+
+        for (int i=1; i <= filas; i++){ // 1, 2, 3, 4 i=4
+            for( int col = 1; col <=i; col++){ // * * * = 4
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+//QUIERO ESTOOOOOOOOOOOOO
+//*
+//**
+//***
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package ciclos;
+
+public class ValidarEdad {
+
+        public static void main (String[] args){
+
+            int edad = leerEdadValidad();
+
+            System.out.println("Edad registrada: " + edad);
+
+        }
+
+        public  static int leerEdadValidad(){
+
+            int edad;
+
+
+            do { //ENTRA AL CICLO Y HAZ ->
+
+                    edad = Entrada.leerEntero("Escribe tu edad (1-120): ");
+
+
+                    if (edad <1 || edad > 120){
+                        System.out.println("Edad NO ES VÄLIDAAA, intenta de nuevo ");
+
+                    }
+            } while (edad <1 || edad > 120);
+
+                return edad;
+        }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class ValidarNota {
+
+    public static void main(String[] args) {
+
+        double nota = leerNotaValida("Nota (0.0 a 5.0): ");
+
+        System.out.println("Nota registrada: " + nota);
+    }
+    public static double leerNotaValida(String mensaje){
+        double nota = Entrada.leerDecimal(mensaje);
+
+        while (nota < 0 || nota > 5) {
+            System.out.println("Nota inválida. Debe estar entre 0 y 5. ");
+            nota = Entrada.leerDecimal(mensaje);
+
+        }
+
+        return nota;
+
+    }
+
+
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package arreglos;
+
+public class VentasPorSede {
+
+    public static void main(String[] args) {
+        int[][] ventas = {
+                {10, 20, 30, 40},
+                {5, 15, 25, 35},
+                {8, 12, 16, 20},
+
+        };
+
+        totalPorSede(ventas);
+        totalPorSemana(ventas);
+    }
+
+    public static void totalPorSede(int[][] ventas) {
+        for (int sede = 0; sede < ventas.length; sede++) {
+            int total = 0;
+
+            for (int semana = 0; semana < ventas[sede].length; semana++) {
+                total += ventas[sede][semana];
+            }
+            System.out.println("Sede " + (sede + 1) + ": " + total);
+
+        }
+    }
+
+    public static void totalPorSemana(int[][] ventas) {
+        for (int semana = 0; semana < ventas[0].length; semana++) {
+            int total = 0;
+
+            for (int sede = 0; sede < ventas.length; sede++) {
+                total += ventas[sede][semana];
+            }
+            System.out.println("Semana " + (semana + 1) + ": " + total);
+        }
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package clase3;
+
+import java.util.Scanner;
+
+public class VerificadorEnvioGratis {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Monto total de la compra: ");
+        double monto = teclado.nextDouble();
+
+        System.out.print("Puntos acumulados: ");
+        int puntos = teclado.nextInt();
+
+        boolean cumpleMonto = monto >= 100000;
+        boolean cumplePuntos = puntos >= 500;
+        boolean tieneEnvioGratis = cumpleMonto || cumplePuntos;
+
+        System.out.println("\n--- Verificador de Envío Gratis ---");
+        System.out.println("¿Cumple el monto mínimo? " + cumpleMonto);
+        System.out.println("¿Cumple los puntos mínimos? " + cumplePuntos);
+        System.out.println("¿Tiene envío gratis? " + tieneEnvioGratis);
+    }
+}
+ 
+ 
+//C�DIGO SIGUIENTE 
+
+package funcionesydecisiones;
+
+public class VotoPermitido {
+    public static void main(String[] args) {
+
+        int edad = Entrada.leerEntero(" Ingresa tu edad: ");
+
+        if (edad >= 18){
+            System.out.println("Puedes votar!!!.");
+        }else{
+            System.out.println("Todavia no puedes votar :(");
+        }
+
+
+    }
+}
+
+ 
+ 
+//C�DIGO SIGUIENTE 
+
