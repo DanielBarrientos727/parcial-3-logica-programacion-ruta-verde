@@ -59,18 +59,17 @@ public class RutaVerde {
         return total;
     }
 
-    // Busca el punto que recolecto mas kilogramos.
-
+    // Busca el punto que recolecto mayor kilogramos.
     public static String buscarMayor(String[] nombres, double[] kilos) {
         int posicionMayor = 0;
 
         //Usamos otro FOR
-        for (int i = 1; i < kilos.length; i++) {
+        for (int i = 0; i < kilos.length; i++) {
             if (kilos[i] > kilos[posicionMayor]) {
                 posicionMayor = i;
             }
         }
-        String mayor = nombres[posicionMayor];
+        int mayor = posicionMayor;
         return mayor;
     }
 
@@ -93,6 +92,7 @@ public class RutaVerde {
             }
         }
         int[] resultado = new int[contador];
+
         int index = 0;
 
         for (int i = 0; i < codigos.length; i++) {
@@ -111,8 +111,6 @@ public class RutaVerde {
 
         return resultado;
     }
-
-
 
     // Combina los nombres y materiales en un solo arreglo.
 
@@ -161,8 +159,7 @@ public class RutaVerde {
         for (int i = 0; i < unicos.length; i++) {
             mensaje += "\n" + unicos[i];
         }
-
-        mensaje += "\n\nNOMBRES Y MATERIALES COMBINADOS:";
+        mensaje += "\n\nNOMBRES Y MATERIALES COMBINADOS:"; //pa simplifica lo de imprimir, imprime agrega
 
         for (int i = 0; i < combinados.length; i++) {
             mensaje += "\n" + combinados[i];
